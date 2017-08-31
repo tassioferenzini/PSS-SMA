@@ -1,11 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Model;
 
-import PROV.DM.Agent;
+import PROV.DM.ProvAgent;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
@@ -16,7 +11,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "Agent")
-public class AgentPSS extends Agent {
+public class AgentPSS extends ProvAgent {
 
     @Column
     private String name;

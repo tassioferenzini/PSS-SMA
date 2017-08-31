@@ -6,7 +6,7 @@ import DAO.WasAttributedToDAO;
 import Guy.SellerGui;
 import Model.AgentPSS;
 import Model.EntityPSS;
-import PROV.DM.WasAttributedTo;
+import PROV.DM.ProvWasAttributedTo;
 import jade.core.Agent;
 import jade.core.behaviours.CyclicBehaviour;
 import jade.core.behaviours.OneShotBehaviour;
@@ -17,6 +17,8 @@ import jade.domain.FIPAAgentManagement.ServiceDescription;
 import jade.lang.acl.ACLMessage;
 import jade.lang.acl.MessageTemplate;
 import java.util.Hashtable;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -55,7 +57,7 @@ public class AgentSell extends Agent {
             System.out.println("The Agent " + ag.getIdAgent() + " of type " + ag.getTypeAgent() + " was started in system");
 
         } catch (FIPAException fe) {
-            fe.printStackTrace();
+            Logger.getLogger(AgentBuy.class.getName()).log(Level.SEVERE, null, fe);
         }
 
         addBehaviour(new OfferRequestsServer());
@@ -68,7 +70,7 @@ public class AgentSell extends Agent {
         try {
             DFService.deregister(this);
         } catch (FIPAException fe) {
-            fe.printStackTrace();
+            Logger.getLogger(AgentBuy.class.getName()).log(Level.SEVERE, null, fe);
         }
 
         myGui.dispose();
@@ -91,7 +93,7 @@ public class AgentSell extends Agent {
                 et.setTitle(title);
                 EntityPSSDAO.getInstance().save(et);
 
-                WasAttributedTo wat = new WasAttributedTo();
+                ProvWasAttributedTo wat = new ProvWasAttributedTo();
                 wat.setAgent(ag);
                 wat.setEntity(et);
                 WasAttributedToDAO.getInstance().save(wat);

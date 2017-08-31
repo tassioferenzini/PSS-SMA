@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package DAO;
 
 import DB.PersistenceUtil;
@@ -10,6 +5,7 @@ import Model.AgentPSS;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
@@ -38,7 +34,7 @@ public class AgentPSSDAO {
             session.flush();
             tx.commit();
         } catch (Exception e) {
-            e.printStackTrace();
+            Logger.getLogger(AgentPSS.class.getName()).log(Level.SEVERE, null, e);
             tx.rollback();
         } finally {
             session.close();
@@ -59,13 +55,14 @@ public class AgentPSSDAO {
 
     public List<AgentPSS> getAll() {
         try {
-            session = PersistenceUtil.getSession();
-            org.hibernate.Query query = session.createQuery("from Agent");
+            session = (Session) PersistenceUtil.getSession();
+            Query query = session.createQuery("from ProvAgent");
             List<AgentPSS> list = query.list();
-            session.close();
             return list;
         } catch (Exception ex) {
             Logger.getLogger(AgentPSSDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            session.close();
         }
         return null;
     }
@@ -81,7 +78,7 @@ public class AgentPSSDAO {
             session.flush();
             tx.commit();
         } catch (Exception e) {
-            e.printStackTrace();
+            Logger.getLogger(AgentPSS.class.getName()).log(Level.SEVERE, null, e);
             tx.rollback();
         } finally {
             session.close();
@@ -98,11 +95,27 @@ public class AgentPSSDAO {
             session.flush();
             tx.commit();
         } catch (Exception e) {
-            e.printStackTrace();
+            Logger.getLogger(AgentPSS.class.getName()).log(Level.SEVERE, null, e);
             tx.rollback();
         } finally {
             session.close();
         }
+    }
 
+    public void deleteAllAgentPSS() {
+        Transaction tx = null;
+        try {
+            session = (Session) PersistenceUtil.getSession();
+            tx = session.beginTransaction();
+            Query query = session.createQuery("delete from ProvAgent");
+            query.executeUpdate();
+            session.flush();
+            tx.commit();
+        } catch (Exception e) {
+            Logger.getLogger(AgentPSS.class.getName()).log(Level.SEVERE, null, e);
+            tx.rollback();
+        } finally {
+            session.close();
+        }
     }
 }

@@ -21,7 +21,7 @@ public abstract class PersistenceUtil {
             sessionFactory = new AnnotationConfiguration().configure(
                     "hibernate.cfg.xml").buildSessionFactory();
         } catch (HibernateException e) {
-            throw new Exception("Erro ao carregar Hibernate: " + e.getMessage());
+            throw new Exception("Error loading Hibernate: " + e.getMessage());
         }
     }
 
@@ -32,7 +32,7 @@ public abstract class PersistenceUtil {
         try {
             return sessionFactory.openSession();
         } catch (HibernateException e) {
-            throw new Exception("Erro ao criar sessão Hibernate: "
+            throw new Exception("Error creating Hibernate session: "
                     + e.getMessage());
         }
     }

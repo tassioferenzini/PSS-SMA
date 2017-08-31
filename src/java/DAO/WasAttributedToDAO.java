@@ -1,15 +1,11 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package DAO;
 
 import DB.PersistenceUtil;
-import PROV.DM.WasAttributedTo;
+import PROV.DM.ProvWasAttributedTo;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
@@ -19,7 +15,7 @@ import org.hibernate.Transaction;
  */
 public class WasAttributedToDAO {
 
-   public static WasAttributedToDAO wasAttributedToPSSDAO;
+    public static WasAttributedToDAO wasAttributedToPSSDAO;
 
     public static WasAttributedToDAO getInstance() {
         if (wasAttributedToPSSDAO == null) {
@@ -27,9 +23,9 @@ public class WasAttributedToDAO {
         }
         return wasAttributedToPSSDAO;
     }
-   private Session session;
+    private Session session;
 
-    public void save(WasAttributedTo wasAttributedTo) {
+    public void save(ProvWasAttributedTo wasAttributedTo) {
         Transaction tx = null;
         try {
             session = (Session) PersistenceUtil.getSession();
@@ -38,30 +34,30 @@ public class WasAttributedToDAO {
             session.flush();
             tx.commit();
         } catch (Exception e) {
-            e.printStackTrace();
+            Logger.getLogger(WasAttributedToDAO.class.getName()).log(Level.SEVERE, null, e);
             tx.rollback();
         } finally {
             session.close();
         }
     }
 
-    public WasAttributedTo getWasAttributedTo(int id) {
+    public ProvWasAttributedTo getWasAttributedTo(int id) {
         try {
             session = (Session) PersistenceUtil.getSession();
-            WasAttributedTo wasAttributedTo = (WasAttributedTo) session.get(WasAttributedTo.class, new Integer(id));
+            ProvWasAttributedTo wasAttributedTo = (ProvWasAttributedTo) session.get(ProvWasAttributedTo.class, new Integer(id));
             session.close();
             return wasAttributedTo;
         } catch (Exception ex) {
-            Logger.getLogger(WasAttributedTo.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(WasAttributedToDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
     }
 
-    public List<WasAttributedTo> getAll() {
+    public List<ProvWasAttributedTo> getAll() {
         try {
             session = PersistenceUtil.getSession();
-            org.hibernate.Query query = session.createQuery("from WasAttributedTo");
-            List<WasAttributedTo> list = query.list();
+            Query query = session.createQuery("from ProvWasAttributedTo");
+            List<ProvWasAttributedTo> list = query.list();
             session.close();
             return list;
         } catch (Exception ex) {
@@ -70,18 +66,18 @@ public class WasAttributedToDAO {
         return null;
     }
 
-    public WasAttributedTo deleteWasAttributedTo(int id) {
+    public ProvWasAttributedTo deleteWasAttributedTo(int id) {
 
         Transaction tx = null;
         try {
             session = (Session) PersistenceUtil.getSession();
-            WasAttributedTo wasAttributedTo = (WasAttributedTo) session.get(WasAttributedTo.class, new Integer(id));
+            ProvWasAttributedTo wasAttributedTo = (ProvWasAttributedTo) session.get(ProvWasAttributedTo.class, new Integer(id));
             tx = session.beginTransaction();
             session.delete(wasAttributedTo);
             session.flush();
             tx.commit();
         } catch (Exception e) {
-            e.printStackTrace();
+            Logger.getLogger(WasAttributedToDAO.class.getName()).log(Level.SEVERE, null, e);
             tx.rollback();
         } finally {
             session.close();
@@ -89,7 +85,7 @@ public class WasAttributedToDAO {
         return null;
     }
 
-    public void deleteWasAttributedTo(WasAttributedTo wasAttributedTo) {
+    public void deleteWasAttributedTo(ProvWasAttributedTo wasAttributedTo) {
         Transaction tx = null;
         try {
             session = (Session) PersistenceUtil.getSession();
@@ -98,10 +94,28 @@ public class WasAttributedToDAO {
             session.flush();
             tx.commit();
         } catch (Exception e) {
-            e.printStackTrace();
+            Logger.getLogger(WasAttributedToDAO.class.getName()).log(Level.SEVERE, null, e);
             tx.rollback();
         } finally {
             session.close();
         }
     }
+
+    public void deleteAllWasAttributedTo() {
+        Transaction tx = null;
+        try {
+            session = (Session) PersistenceUtil.getSession();
+            tx = session.beginTransaction();
+            Query query = session.createQuery("delete from ProvAgent");
+            query.executeUpdate();
+            session.flush();
+            tx.commit();
+        } catch (Exception e) {
+            Logger.getLogger(WasAttributedToDAO.class.getName()).log(Level.SEVERE, null, e);
+            tx.rollback();
+        } finally {
+            session.close();
+        }
+    }
+
 }

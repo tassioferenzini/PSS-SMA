@@ -1,12 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Beans;
 
 import DAO.WasAttributedToDAO;
-import PROV.DM.WasAttributedTo;
+import PROV.DM.ProvWasAttributedTo;
 import java.util.ArrayList;
 import javax.faces.bean.ViewScoped;
 import javax.faces.event.ActionEvent;
@@ -35,36 +30,33 @@ import org.apache.poi.hssf.util.HSSFColor;
 @ViewScoped
 public class WasAttributedToBean {
 
-    WasAttributedTo wasAttributedTo = new WasAttributedTo();
+    ProvWasAttributedTo wasAttributedTo = new ProvWasAttributedTo();
 
     List wasAttributedTos = new ArrayList();
 
-    //construtor
     public WasAttributedToBean() {
         wasAttributedTos = new WasAttributedToDAO().getAll();
-        wasAttributedTo = new WasAttributedTo();
+        wasAttributedTo = new ProvWasAttributedTo();
     }
 
-    //Métodos dos botões 
     public void record(ActionEvent actionEvent) {
         new WasAttributedToDAO().save(wasAttributedTo);
         wasAttributedTos = new WasAttributedToDAO().getAll();
-        wasAttributedTo = new WasAttributedTo();
+        wasAttributedTo = new ProvWasAttributedTo();
 
     }
 
     public void exclude(ActionEvent actionEvent) {
         new WasAttributedToDAO().deleteWasAttributedTo(wasAttributedTo);
         wasAttributedTos = new WasAttributedToDAO().getAll();
-        wasAttributedTo = new WasAttributedTo();
+        wasAttributedTo = new ProvWasAttributedTo();
     }
 
-    //getters and setters
-    public WasAttributedTo getWasAttributedTo() {
+    public ProvWasAttributedTo getWasAttributedTo() {
         return wasAttributedTo;
     }
 
-    public void setWasAttributedTo(WasAttributedTo wasAttributedTo) {
+    public void setWasAttributedTo(ProvWasAttributedTo wasAttributedTo) {
         this.wasAttributedTo = wasAttributedTo;
     }
 
@@ -96,11 +88,7 @@ public class WasAttributedToBean {
         Document pdf = (Document) document;
         pdf.open();
         pdf.setPageSize(PageSize.A4);
-
         ServletContext servletContext = (ServletContext) FacesContext.getCurrentInstance().getExternalContext().getContext();
-        //String logo = servletContext.getRealPath("") + File.separator + "resources" + File.separator + "demo" + File.separator + "images" + File.separator + "prime_logo.png";
-
-        // pdf.add(Image.getInstance(logo));
     }
 
 }

@@ -1,21 +1,16 @@
 package Model;
 
-import PROV.DM.Entity;
+import PROV.DM.ProvEntity;
 import javax.persistence.Column;
 import javax.persistence.Table;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 /**
  *
  * @author tassio
  */
 @javax.persistence.Entity
 @Table(name = "Entity")
-public class EntityPSS extends Entity{
+public class EntityPSS extends ProvEntity {
 
     @Column
     private String title;

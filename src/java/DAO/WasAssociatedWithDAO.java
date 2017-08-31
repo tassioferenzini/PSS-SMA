@@ -1,15 +1,11 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package DAO;
 
 import DB.PersistenceUtil;
-import PROV.DM.WasAssociatedWith;
+import PROV.DM.ProvWasAssociatedWith;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
@@ -19,7 +15,7 @@ import org.hibernate.Transaction;
  */
 public class WasAssociatedWithDAO {
 
-   public static WasAssociatedWithDAO wasAssociatedWithPSSDAO;
+    public static WasAssociatedWithDAO wasAssociatedWithPSSDAO;
 
     public static WasAssociatedWithDAO getInstance() {
         if (wasAssociatedWithPSSDAO == null) {
@@ -27,10 +23,10 @@ public class WasAssociatedWithDAO {
         }
         return wasAssociatedWithPSSDAO;
     }
-    
-  private Session session;
 
-    public void save(WasAssociatedWith wasAssociatedWith) {
+    private Session session;
+
+    public void save(ProvWasAssociatedWith wasAssociatedWith) {
         Transaction tx = null;
         try {
             session = (Session) PersistenceUtil.getSession();
@@ -39,30 +35,30 @@ public class WasAssociatedWithDAO {
             session.flush();
             tx.commit();
         } catch (Exception e) {
-            e.printStackTrace();
+            Logger.getLogger(WasAssociatedWithDAO.class.getName()).log(Level.SEVERE, null, e);
             tx.rollback();
         } finally {
             session.close();
         }
     }
 
-    public WasAssociatedWith getWasAssociatedWith(int id) {
+    public ProvWasAssociatedWith getWasAssociatedWith(int id) {
         try {
             session = (Session) PersistenceUtil.getSession();
-            WasAssociatedWith wasAssociatedWith = (WasAssociatedWith) session.get(WasAssociatedWith.class, new Integer(id));
+            ProvWasAssociatedWith wasAssociatedWith = (ProvWasAssociatedWith) session.get(ProvWasAssociatedWith.class, new Integer(id));
             session.close();
             return wasAssociatedWith;
         } catch (Exception ex) {
-            Logger.getLogger(WasAssociatedWith.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ProvWasAssociatedWith.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
     }
 
-    public List<WasAssociatedWith> getAll() {
+    public List<ProvWasAssociatedWith> getAll() {
         try {
             session = PersistenceUtil.getSession();
-            org.hibernate.Query query = session.createQuery("from WasAssociatedWith");
-            List<WasAssociatedWith> list = query.list();
+            Query query = session.createQuery("from ProvWasAssociatedWith");
+            List<ProvWasAssociatedWith> list = query.list();
             session.close();
             return list;
         } catch (Exception ex) {
@@ -71,18 +67,18 @@ public class WasAssociatedWithDAO {
         return null;
     }
 
-    public WasAssociatedWith deleteWasAssociatedWith(int id) {
+    public ProvWasAssociatedWith deleteWasAssociatedWith(int id) {
 
         Transaction tx = null;
         try {
             session = (Session) PersistenceUtil.getSession();
-            WasAssociatedWith wasAssociatedWith = (WasAssociatedWith) session.get(WasAssociatedWith.class, new Integer(id));
+            ProvWasAssociatedWith wasAssociatedWith = (ProvWasAssociatedWith) session.get(ProvWasAssociatedWith.class, new Integer(id));
             tx = session.beginTransaction();
             session.delete(wasAssociatedWith);
             session.flush();
             tx.commit();
         } catch (Exception e) {
-            e.printStackTrace();
+            Logger.getLogger(WasAssociatedWithDAO.class.getName()).log(Level.SEVERE, null, e);
             tx.rollback();
         } finally {
             session.close();
@@ -90,7 +86,7 @@ public class WasAssociatedWithDAO {
         return null;
     }
 
-    public void deleteWasAssociatedWith(WasAssociatedWith wasAssociatedWith) {
+    public void deleteWasAssociatedWith(ProvWasAssociatedWith wasAssociatedWith) {
         Transaction tx = null;
         try {
             session = (Session) PersistenceUtil.getSession();
@@ -99,11 +95,28 @@ public class WasAssociatedWithDAO {
             session.flush();
             tx.commit();
         } catch (Exception e) {
-            e.printStackTrace();
+            Logger.getLogger(WasAssociatedWithDAO.class.getName()).log(Level.SEVERE, null, e);
             tx.rollback();
         } finally {
             session.close();
         }
-
     }
+
+    public void deleteAllWasAssociatedWith() {
+        Transaction tx = null;
+        try {
+            session = (Session) PersistenceUtil.getSession();
+            tx = session.beginTransaction();
+            Query query = session.createQuery("delete from ProvAgent");
+            query.executeUpdate();
+            session.flush();
+            tx.commit();
+        } catch (Exception e) {
+            Logger.getLogger(WasAssociatedWithDAO.class.getName()).log(Level.SEVERE, null, e);
+            tx.rollback();
+        } finally {
+            session.close();
+        }
+    }
+
 }

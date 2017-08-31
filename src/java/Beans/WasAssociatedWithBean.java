@@ -1,12 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Beans;
 
 import DAO.WasAssociatedWithDAO;
-import PROV.DM.WasAssociatedWith;
+import PROV.DM.ProvWasAssociatedWith;
 import java.util.ArrayList;
 import javax.faces.bean.ViewScoped;
 import javax.faces.event.ActionEvent;
@@ -35,44 +30,41 @@ import org.apache.poi.hssf.util.HSSFColor;
 @ViewScoped
 public class WasAssociatedWithBean {
 
-    WasAssociatedWith wasAssociatedWith = new WasAssociatedWith();
+    ProvWasAssociatedWith wasAssociatedWith = new ProvWasAssociatedWith();
 
     List wasAssociatedWiths = new ArrayList();
 
-    //construtor
     public WasAssociatedWithBean() {
         wasAssociatedWiths = new WasAssociatedWithDAO().getAll();
-        wasAssociatedWith = new WasAssociatedWith();
+        wasAssociatedWith = new ProvWasAssociatedWith();
     }
 
-    //Métodos dos botões 
     public void record(ActionEvent actionEvent) {
         new WasAssociatedWithDAO().save(wasAssociatedWith);
         wasAssociatedWiths = new WasAssociatedWithDAO().getAll();
-        wasAssociatedWith = new WasAssociatedWith();
+        wasAssociatedWith = new ProvWasAssociatedWith();
 
     }
 
     public void exclude(ActionEvent actionEvent) {
         new WasAssociatedWithDAO().deleteWasAssociatedWith(wasAssociatedWith);
         wasAssociatedWiths = new WasAssociatedWithDAO().getAll();
-        wasAssociatedWith = new WasAssociatedWith();
+        wasAssociatedWith = new ProvWasAssociatedWith();
     }
 
-    //getters and setters
-    public WasAssociatedWith getWasAssociatedWith() {
+    public ProvWasAssociatedWith getWasAssociatedWith() {
         return wasAssociatedWith;
     }
 
-    public void setWasAssociatedWith(WasAssociatedWith wasAssociatedWith) {
+    public void setWasAssociatedWith(ProvWasAssociatedWith wasAssociatedWith) {
         this.wasAssociatedWith = wasAssociatedWith;
     }
 
-    public WasAssociatedWith getAgent() {
+    public ProvWasAssociatedWith getAgent() {
         return wasAssociatedWith;
     }
 
-    public void setAgent(WasAssociatedWith wasAssociatedWith) {
+    public void setAgent(ProvWasAssociatedWith wasAssociatedWith) {
         this.wasAssociatedWith = wasAssociatedWith;
     }
 
@@ -104,11 +96,8 @@ public class WasAssociatedWithBean {
         Document pdf = (Document) document;
         pdf.open();
         pdf.setPageSize(PageSize.A4);
-
         ServletContext servletContext = (ServletContext) FacesContext.getCurrentInstance().getExternalContext().getContext();
-        //String logo = servletContext.getRealPath("") + File.separator + "resources" + File.separator + "demo" + File.separator + "images" + File.separator + "prime_logo.png";
 
-        // pdf.add(Image.getInstance(logo));
     }
 
 }

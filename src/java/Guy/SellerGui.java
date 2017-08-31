@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Guy;
 
 import Agents.AgentSell;
@@ -60,7 +55,8 @@ public class SellerGui extends JFrame {
                     titleField.setText("");
                     priceField.setText("");
                 } catch (Exception e) {
-                    JOptionPane.showMessageDialog(SellerGui.this, "Invalid values. " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(SellerGui.this, "Invalid values. " + e.getMessage(), "Error",
+                            JOptionPane.ERROR_MESSAGE);
                 }
             }
         });
@@ -68,8 +64,8 @@ public class SellerGui extends JFrame {
         p.add(addButton);
         getContentPane().add(p, BorderLayout.SOUTH);
 
-        // Make the agent terminate when the user closes 
-        // the GUI using the button on the upper right corner	
+        // Make the agent terminate when the user closes
+        // the GUI using the button on the upper right corner
         addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {

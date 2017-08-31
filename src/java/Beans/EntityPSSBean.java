@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Beans;
 
 import DAO.EntityPSSDAO;
@@ -39,13 +34,11 @@ public class EntityPSSBean {
 
     List entitys = new ArrayList();
 
-    //construtor
     public EntityPSSBean() {
         entitys = new EntityPSSDAO().getAll();
         entity = new EntityPSS();
     }
 
-    //Métodos dos botões 
     public void record(ActionEvent actionEvent) {
         new EntityPSSDAO().save(entity);
         entitys = new EntityPSSDAO().getAll();
@@ -59,7 +52,6 @@ public class EntityPSSBean {
         entity = new EntityPSS();
     }
 
-    //getters and setters
     public EntityPSS getEntityPSS() {
         return entity;
     }
@@ -95,7 +87,6 @@ public class EntityPSSBean {
 
         for (int i = 0; i < header.getPhysicalNumberOfCells(); i++) {
             HSSFCell cell = header.getCell(i);
-
             cell.setCellStyle(cellStyle);
         }
     }
@@ -104,11 +95,7 @@ public class EntityPSSBean {
         Document pdf = (Document) document;
         pdf.open();
         pdf.setPageSize(PageSize.A4);
-
         ServletContext servletContext = (ServletContext) FacesContext.getCurrentInstance().getExternalContext().getContext();
-        //String logo = servletContext.getRealPath("") + File.separator + "resources" + File.separator + "demo" + File.separator + "images" + File.separator + "prime_logo.png";
-
-        // pdf.add(Image.getInstance(logo));
     }
 
 }

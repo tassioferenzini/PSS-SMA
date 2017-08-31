@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package DAO;
 
 import DB.PersistenceUtil;
@@ -10,6 +5,7 @@ import Model.EntityPSS;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
@@ -39,7 +35,7 @@ public class EntityPSSDAO {
             session.flush();
             tx.commit();
         } catch (Exception e) {
-            e.printStackTrace();
+            Logger.getLogger(EntityPSS.class.getName()).log(Level.SEVERE, null, e);
             tx.rollback();
         } finally {
             session.close();
@@ -61,7 +57,7 @@ public class EntityPSSDAO {
     public List<EntityPSS> getAll() {
         try {
             session = (Session) PersistenceUtil.getSession();
-            org.hibernate.Query query = session.createQuery("from Entity");
+            Query query = session.createQuery("from ProvEntity");
             List<EntityPSS> list = query.list();
             session.close();
             return list;
@@ -82,7 +78,7 @@ public class EntityPSSDAO {
             session.flush();
             tx.commit();
         } catch (Exception e) {
-            e.printStackTrace();
+            Logger.getLogger(EntityPSS.class.getName()).log(Level.SEVERE, null, e);
             tx.rollback();
         } finally {
             session.close();
@@ -99,11 +95,28 @@ public class EntityPSSDAO {
             session.flush();
             tx.commit();
         } catch (Exception e) {
-            e.printStackTrace();
+            Logger.getLogger(EntityPSS.class.getName()).log(Level.SEVERE, null, e);
             tx.rollback();
         } finally {
             session.close();
         }
-
     }
+    
+        public void deleteAllEntityPSS() {
+        Transaction tx = null;
+        try {
+            session = (Session) PersistenceUtil.getSession();
+            tx = session.beginTransaction();
+            Query query = session.createQuery("delete from ProvAgent");
+            query.executeUpdate();
+            session.flush();
+            tx.commit();
+        } catch (Exception e) {
+            Logger.getLogger(EntityPSS.class.getName()).log(Level.SEVERE, null, e);
+            tx.rollback();
+        } finally {
+            session.close();
+        }
+    }
+        
 }

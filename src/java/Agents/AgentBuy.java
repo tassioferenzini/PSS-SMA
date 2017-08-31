@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Agents;
 
 import DAO.ActivityPSSDAO;
@@ -10,7 +5,7 @@ import DAO.AgentPSSDAO;
 import DAO.WasAssociatedWithDAO;
 import Model.ActivityPSS;
 import Model.AgentPSS;
-import PROV.DM.WasAssociatedWith;
+import PROV.DM.ProvWasAssociatedWith;
 import jade.core.Agent;
 import jade.core.AID;
 import jade.core.behaviours.*;
@@ -22,6 +17,8 @@ import jade.domain.FIPAAgentManagement.DFAgentDescription;
 import jade.domain.FIPAAgentManagement.ServiceDescription;
 import java.time.Instant;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -67,7 +64,7 @@ public class AgentBuy extends Agent {
                             System.out.println(sellerAgents[i].getName());
                         }
                     } catch (FIPAException fe) {
-                        fe.printStackTrace();
+                        Logger.getLogger(AgentBuy.class.getName()).log(Level.SEVERE, null, fe);
                     }
 
                     myAgent.addBehaviour(new RequestPerformer());
@@ -211,7 +208,7 @@ public class AgentBuy extends Agent {
                     ac4.setEndTime(endTime4);
                     ActivityPSSDAO.getInstance().save(ac4);
 
-                    WasAssociatedWith waw = new WasAssociatedWith();
+                    ProvWasAssociatedWith waw = new ProvWasAssociatedWith();
                     waw.setActivity(ac4);
                     waw.setAgent(ag);
                     waw.setPlan("The agent" + ag.getName() + " successfully purchased " + targetTitle + " of " + reply.getSender().getName());

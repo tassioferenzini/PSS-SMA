@@ -3,9 +3,9 @@
 <hibernate-configuration>
     <session-factory>
         <property name="connection.driver_class">com.mysql.jdbc.Driver</property>
-        <property name="connection.url">jdbc:mysql://localhost:3306/psssma</property>
-        <property name="connection.username">root</property>
-        <property name="connection.password">tfmsifm</property>
+        <property name="connection.url">jdbc:mysql://localhost:3306/sma</property>
+        <property name="connection.username">sma</property>
+        <property name="connection.password">sma2017</property>
         <property name="connection.pool_size">1</property>
         <property name="dialect">org.hibernate.dialect.MySQLDialect</property>
         <property name="current_session_context_class">thread</property>
@@ -15,29 +15,29 @@
         <mapping class="Model.EntityPSS" />
         <mapping class="Model.ActivityPSS" />
         <mapping class="Model.AgentPSS" />
-        <mapping class="PROV.DM.Agent"/>
-        <mapping class="PROV.DM.Entity" />
-        <mapping class="PROV.DM.WasDerivedFrom" />
-        <mapping class="PROV.DM.Used" />
-        <mapping class="PROV.DM.PrimarySource" />
-        <mapping class="PROV.DM.WasEndedBy" />
-        <mapping class="PROV.DM.WasAssociatedWith" />
-        <mapping class="PROV.DM.Revision" />
-        <mapping class="PROV.DM.ActedOnBehalfOf" />
-        <mapping class="PROV.DM.Activity" />
-        <mapping class="PROV.DM.WasStartedBy" />
-        <mapping class="PROV.DM.WasAttributedTo" />
-        <mapping class="PROV.DM.HadMember" />
-        <mapping class="PROV.DM.WasStartedByAA" />
-        <mapping class="PROV.DM.WasEndedByAA" />
-        <mapping class="PROV.DM.WasInvalidatedBy" />
-        <mapping class="PROV.DM.WasInformedBy" />
-        <mapping class="PROV.DM.ActedOnBehalfOfAgAc" />
-        <mapping class="PROV.DM.WasDerivedFromEA" />
-        <mapping class="PROV.DM.WasAssociatedWithAE" />
-        <mapping class="PROV.DM.Quotation" />
-        <mapping class="PROV.DM.SpecializationOf" />
-        <mapping class="PROV.DM.WasGeneratedBy" />
-        <mapping class="PROV.DM.AlternateOf" />
+        <mapping class="PROV.DM.ProvAgent"/>
+        <mapping class="PROV.DM.ProvEntity" />
+        <mapping class="PROV.DM.ProvWasDerivedFrom" />
+        <mapping class="PROV.DM.ProvUsed" />
+        <mapping class="PROV.DM.ProvPrimarySource" />
+        <mapping class="PROV.DM.ProvWasEndedBy" />
+        <mapping class="PROV.DM.ProvWasAssociatedWith" />
+        <mapping class="PROV.DM.ProvRevision" />
+        <mapping class="PROV.DM.ProvActedOnBehalfOf" />
+        <mapping class="PROV.DM.ProvActivity" />
+        <mapping class="PROV.DM.ProvWasStartedBy" />
+        <mapping class="PROV.DM.ProvWasAttributedTo" />
+        <mapping class="PROV.DM.ProvHadMember" />
+        <mapping class="PROV.DM.ProvWasStartedByAA" />
+        <mapping class="PROV.DM.ProvWasEndedByAA" />
+        <mapping class="PROV.DM.ProvWasInvalidatedBy" />
+        <mapping class="PROV.DM.ProvWasInformedBy" />
+        <mapping class="PROV.DM.ProvActedOnBehalfOfAgAc" />
+        <mapping class="PROV.DM.ProvWasDerivedFromEA" />
+        <mapping class="PROV.DM.ProvWasAssociatedWithAE" />
+        <mapping class="PROV.DM.ProvQuotation" />
+        <mapping class="PROV.DM.ProvSpecializationOf" />
+        <mapping class="PROV.DM.ProvWasGeneratedBy" />
+        <mapping class="PROV.DM.ProvAlternateOf" />
     </session-factory>
 </hibernate-configuration>

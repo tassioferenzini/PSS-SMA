@@ -1,15 +1,12 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package DAO;
 
 import DB.PersistenceUtil;
 import Model.ActivityPSS;
+import java.io.Serializable;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
@@ -17,7 +14,7 @@ import org.hibernate.Transaction;
  *
  * @author tassio
  */
-public class ActivityPSSDAO {
+public class ActivityPSSDAO implements Serializable {
 
     public static ActivityPSSDAO activityPSSDAO;
 
@@ -39,7 +36,7 @@ public class ActivityPSSDAO {
             session.flush();
             tx.commit();
         } catch (Exception e) {
-            e.printStackTrace();
+            Logger.getLogger(ActivityPSS.class.getName()).log(Level.SEVERE, null, e);
             tx.rollback();
         } finally {
             session.close();
@@ -61,7 +58,7 @@ public class ActivityPSSDAO {
     public List<ActivityPSS> getAll() {
         try {
             session = PersistenceUtil.getSession();
-            org.hibernate.Query query = session.createQuery("from Activity");
+            Query query = session.createQuery("from ProvActivity");
             List<ActivityPSS> list = query.list();
             session.close();
             return list;
@@ -82,7 +79,7 @@ public class ActivityPSSDAO {
             session.flush();
             tx.commit();
         } catch (Exception e) {
-            e.printStackTrace();
+            Logger.getLogger(ActivityPSS.class.getName()).log(Level.SEVERE, null, e);
             tx.rollback();
         } finally {
             session.close();
@@ -99,11 +96,28 @@ public class ActivityPSSDAO {
             session.flush();
             tx.commit();
         } catch (Exception e) {
-            e.printStackTrace();
+            Logger.getLogger(ActivityPSS.class.getName()).log(Level.SEVERE, null, e);
             tx.rollback();
         } finally {
             session.close();
         }
-
     }
+
+    public void deleteAllActivityPSS() {
+        Transaction tx = null;
+        try {
+            session = (Session) PersistenceUtil.getSession();
+            tx = session.beginTransaction();
+            Query query = session.createQuery("delete from ProvActivity");
+            query.executeUpdate();
+            session.flush();
+            tx.commit();
+        } catch (Exception e) {
+            Logger.getLogger(ActivityPSS.class.getName()).log(Level.SEVERE, null, e);
+            tx.rollback();
+        } finally {
+            session.close();
+        }
+    }
+
 }
