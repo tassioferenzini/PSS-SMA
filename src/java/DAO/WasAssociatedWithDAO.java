@@ -3,8 +3,7 @@ package DAO;
 import DB.PersistenceUtil;
 import PROV.DM.ProvWasAssociatedWith;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import org.apache.log4j.Logger;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -15,6 +14,7 @@ import org.hibernate.Transaction;
  */
 public class WasAssociatedWithDAO {
 
+    Logger logger = Logger.getLogger("DAO");
     public static WasAssociatedWithDAO wasAssociatedWithPSSDAO;
 
     public static WasAssociatedWithDAO getInstance() {
@@ -27,6 +27,7 @@ public class WasAssociatedWithDAO {
     private Session session;
 
     public void save(ProvWasAssociatedWith wasAssociatedWith) {
+        logger.trace("Start Method");
         Transaction tx = null;
         try {
             session = (Session) PersistenceUtil.getSession();
@@ -35,26 +36,30 @@ public class WasAssociatedWithDAO {
             session.flush();
             tx.commit();
         } catch (Exception e) {
-            Logger.getLogger(WasAssociatedWithDAO.class.getName()).log(Level.SEVERE, null, e);
+            logger.error("Unexpected error", e);
             tx.rollback();
         } finally {
+            logger.trace("Ended Method");
             session.close();
         }
     }
 
     public ProvWasAssociatedWith getWasAssociatedWith(int id) {
+        logger.trace("Start Method");
         try {
             session = (Session) PersistenceUtil.getSession();
             ProvWasAssociatedWith wasAssociatedWith = (ProvWasAssociatedWith) session.get(ProvWasAssociatedWith.class, new Integer(id));
             session.close();
             return wasAssociatedWith;
         } catch (Exception ex) {
-            Logger.getLogger(ProvWasAssociatedWith.class.getName()).log(Level.SEVERE, null, ex);
+            logger.error("Unexpected error", ex);
         }
+        logger.trace("Ended Method");
         return null;
     }
 
     public List<ProvWasAssociatedWith> getAll() {
+        logger.trace("Start Method");
         try {
             session = PersistenceUtil.getSession();
             Query query = session.createQuery("from ProvWasAssociatedWith");
@@ -62,13 +67,14 @@ public class WasAssociatedWithDAO {
             session.close();
             return list;
         } catch (Exception ex) {
-            Logger.getLogger(WasAssociatedWithDAO.class.getName()).log(Level.SEVERE, null, ex);
+            logger.error("Unexpected error", ex);
         }
+        logger.trace("Ended Method");
         return null;
     }
 
     public ProvWasAssociatedWith deleteWasAssociatedWith(int id) {
-
+        logger.trace("Start Method");
         Transaction tx = null;
         try {
             session = (Session) PersistenceUtil.getSession();
@@ -78,15 +84,17 @@ public class WasAssociatedWithDAO {
             session.flush();
             tx.commit();
         } catch (Exception e) {
-            Logger.getLogger(WasAssociatedWithDAO.class.getName()).log(Level.SEVERE, null, e);
+            logger.error("Unexpected error", e);
             tx.rollback();
         } finally {
+            logger.trace("Ended Method");
             session.close();
         }
         return null;
     }
 
     public void deleteWasAssociatedWith(ProvWasAssociatedWith wasAssociatedWith) {
+        logger.trace("Start Method");
         Transaction tx = null;
         try {
             session = (Session) PersistenceUtil.getSession();
@@ -95,14 +103,16 @@ public class WasAssociatedWithDAO {
             session.flush();
             tx.commit();
         } catch (Exception e) {
-            Logger.getLogger(WasAssociatedWithDAO.class.getName()).log(Level.SEVERE, null, e);
+            logger.error("Unexpected error", e);
             tx.rollback();
         } finally {
+            logger.trace("Ended Method");
             session.close();
         }
     }
 
     public void deleteAllWasAssociatedWith() {
+        logger.trace("Start Method");
         Transaction tx = null;
         try {
             session = (Session) PersistenceUtil.getSession();
@@ -112,9 +122,10 @@ public class WasAssociatedWithDAO {
             session.flush();
             tx.commit();
         } catch (Exception e) {
-            Logger.getLogger(WasAssociatedWithDAO.class.getName()).log(Level.SEVERE, null, e);
+            logger.error("Unexpected error", e);
             tx.rollback();
         } finally {
+            logger.trace("Ended Method");
             session.close();
         }
     }
